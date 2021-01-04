@@ -1,15 +1,31 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <StepSequencer v-bind:steps="steps" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import StepSequencer from './components/StepSequencer'
+import { ref } from 'vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    StepSequencer,
+  },
+  setup() {
+    let steps = ref([
+      { id: 1, on: true },
+      { id: 2, on: true },
+      { id: 3, on: false },
+      { id: 4, on: false },
+      { id: 5, on: false },
+      { id: 6, on: true },
+      { id: 7, on: false },
+      { id: 8, on: false },
+    ])
+
+    return {
+      steps
+    }
   }
 }
 </script>
