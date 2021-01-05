@@ -10,7 +10,7 @@
 <script>
 import StepSequencer from './components/StepSequencer'
 import Controls from './components/Controls'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 export default {
   name: 'App',
@@ -20,15 +20,17 @@ export default {
   },
   setup() {
     let steps = ref([
-      { id: 1, on: true },
-      { id: 2, on: true },
-      { id: 3, on: false },
-      { id: 4, on: false },
-      { id: 5, on: false },
-      { id: 6, on: true },
-      { id: 7, on: false },
-      { id: 8, on: false },
+      { id: 1, on: true, isTriggering: false },
+      { id: 2, on: true, isTriggering: false },
+      { id: 3, on: false, isTriggering: false },
+      { id: 4, on: false, isTriggering: false },
+      { id: 5, on: false, isTriggering: false },
+      { id: 6, on: true, isTriggering: false },
+      { id: 7, on: false, isTriggering: false },
+      { id: 8, on: false, isTriggering: false },
     ])
+
+    let stepperInterval = ref({})
 
     let isPlaying = ref(false)
 
@@ -39,6 +41,26 @@ export default {
     function stopSequence() {
       isPlaying.value = false
     }
+
+    watch(isPlaying, (isPlaying, prevIsPlaying) => {
+      if (isPlaying && !prevIsPlaying) {
+        steps.value[0].isTriggering = true
+        stepperInterval.value = setInterval(() => {
+            const triggeringIndex = steps.value.findIndex((step) => step.isTriggering)
+            steps.value[triggeringIndex].isTriggering = false
+
+            if (triggeringIndex+1 < steps.value.length) {
+              steps.value[triggeringIndex+1].isTriggering = true
+            } else {
+              steps.value[0].isTriggering = true
+            }
+          }, 200)
+      } else {
+        clearInterval(stepperInterval.value)
+        const triggeringIndex = steps.value.findIndex((step) => step.isTriggering)
+        steps.value[triggeringIndex].isTriggering = false
+      }
+    })
 
     return {
       steps,
