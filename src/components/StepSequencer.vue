@@ -6,7 +6,6 @@
       v-bind:step="step"
     />
   </div>
-  <div>Steps here</div>
 </template>
 
 <script>
@@ -27,5 +26,7 @@ export default {
   .steps-wrapper {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    margin: 50px;
   }
 </style>

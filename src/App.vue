@@ -1,15 +1,18 @@
 <template>
   <StepSequencer v-bind:steps="steps" />
+  <Controls v-bind:isPlaying="isPlaying" />
 </template>
 
 <script>
 import StepSequencer from './components/StepSequencer'
+import Controls from './components/Controls'
 import { ref } from 'vue'
 
 export default {
   name: 'App',
   components: {
     StepSequencer,
+    Controls,
   },
   setup() {
     let steps = ref([
@@ -23,8 +26,11 @@ export default {
       { id: 8, on: false },
     ])
 
+    let isPlaying = ref(false)
+
     return {
-      steps
+      steps,
+      isPlaying,
     }
   }
 }
