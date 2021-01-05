@@ -1,6 +1,10 @@
 <template>
   <StepSequencer v-bind:steps="steps" />
-  <Controls v-bind:isPlaying="isPlaying" />
+  <Controls
+    v-bind:isPlaying="isPlaying"
+    v-on:play-sequence="playSequence"
+    v-on:stop-sequence="stopSequence"
+  />
 </template>
 
 <script>
@@ -28,9 +32,19 @@ export default {
 
     let isPlaying = ref(false)
 
+    function playSequence() {
+      isPlaying.value = true
+    }
+
+    function stopSequence() {
+      isPlaying.value = false
+    }
+
     return {
       steps,
       isPlaying,
+      playSequence,
+      stopSequence,
     }
   }
 }
