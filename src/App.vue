@@ -1,5 +1,8 @@
 <template>
-  <StepSequencer v-bind:steps="steps" />
+  <StepSequencer
+    v-bind:steps="steps"
+    v-on:step-selected="toggleStepOn"
+  />
   <Controls
     v-bind:isPlaying="isPlaying"
     v-on:play-sequence="playSequence"
@@ -37,6 +40,11 @@ export default {
     let stepperInterval = ref({})
 
     let isPlaying = ref(false)
+
+    function toggleStepOn(id) {
+      const stepIndex = steps.value.findIndex((step) => step.id === id)
+      steps.value[stepIndex].on = !steps.value[stepIndex].on
+    }
 
     function playSequence() {
       isPlaying.value = true
@@ -78,6 +86,7 @@ export default {
       isPlaying,
       playSequence,
       stopSequence,
+      toggleStepOn,
     }
   }
 }

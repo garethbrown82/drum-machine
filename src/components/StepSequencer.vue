@@ -20,9 +20,9 @@ export default {
   props: {
     steps: Array,
   },
-  setup() {
+  setup(props, { emit }) {
     function selectStep(id) {
-      console.log('step selected', id)
+      emit('step-selected', id)
     }
 
     return {
