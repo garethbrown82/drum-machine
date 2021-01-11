@@ -5,6 +5,7 @@
       on: step.on,
       triggering: step.isTriggering
     }"
+    v-on:click="$emit('step-clicked', step.id)"
   />
 </template>
 
@@ -13,7 +14,8 @@ export default {
   name: 'Step',
   props: {
     step: Object,
-  }
+  },
+  emits: ['step-clicked']
 }
 </script>
 

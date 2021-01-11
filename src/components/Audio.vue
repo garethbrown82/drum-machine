@@ -5,12 +5,12 @@
 </template>
 
 <script>
-import { sineBlip } from '../audioUtilities/sineBlip'
+import { playSineBlip } from '../audioUtilities/sineBlip'
 export default {
   name: 'Audio',
   setup() {
     function playAudio() {
-      sineBlip()
+      playSineBlip()
     }
 
     return {

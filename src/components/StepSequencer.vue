@@ -4,6 +4,7 @@
       v-for="step in steps"
       v-bind:key="step"
       v-bind:step="step"
+      v-on:step-clicked="selectStep"
     />
   </div>
 </template>
@@ -18,6 +19,15 @@ export default {
   },
   props: {
     steps: Array,
+  },
+  setup() {
+    function selectStep(id) {
+      console.log('step selected', id)
+    }
+
+    return {
+      selectStep,
+    }
   }
 }
 </script>
