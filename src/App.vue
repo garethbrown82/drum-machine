@@ -5,11 +5,13 @@
     v-on:play-sequence="playSequence"
     v-on:stop-sequence="stopSequence"
   />
+  <Audio />
 </template>
 
 <script>
 import StepSequencer from './components/StepSequencer'
 import Controls from './components/Controls'
+import Audio from './components/Audio'
 import { ref, watch } from 'vue'
 
 export default {
@@ -17,6 +19,7 @@ export default {
   components: {
     StepSequencer,
     Controls,
+    Audio,
   },
   setup() {
     let steps = ref([
