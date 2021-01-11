@@ -1,4 +1,4 @@
-export const sineBlip = () => {
+export const playSineBlip = () => {
   const audioContext = new AudioContext()
   const oscillator = audioContext.createOscillator()
   oscillator.frequency.setValueAtTime(261.6, 0)

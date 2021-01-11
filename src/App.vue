@@ -13,6 +13,7 @@ import StepSequencer from './components/StepSequencer'
 import Controls from './components/Controls'
 import Audio from './components/Audio'
 import { ref, watch } from 'vue'
+import { playSineBlip } from './audioUtilities/sineBlip'
 
 export default {
   name: 'App',
@@ -45,19 +46,26 @@ export default {
       isPlaying.value = false
     }
 
+    function handleStep() {
+      const triggeringIndex = steps.value.findIndex((step) => step.isTriggering)
+      if(steps.value[triggeringIndex].on) {
+        playSineBlip()
+      }
+      steps.value[triggeringIndex].isTriggering = false
+
+      if (triggeringIndex+1 < steps.value.length) {
+        steps.value[triggeringIndex+1].isTriggering = true
+      } else {
+        steps.value[0].isTriggering = true
+      }
+    }
+
     watch(isPlaying, (isPlaying, prevIsPlaying) => {
       if (isPlaying && !prevIsPlaying) {
         steps.value[0].isTriggering = true
         stepperInterval.value = setInterval(() => {
-            const triggeringIndex = steps.value.findIndex((step) => step.isTriggering)
-            steps.value[triggeringIndex].isTriggering = false
-
-            if (triggeringIndex+1 < steps.value.length) {
-              steps.value[triggeringIndex+1].isTriggering = true
-            } else {
-              steps.value[0].isTriggering = true
-            }
-          }, 200)
+          handleStep()
+        }, 200)
       } else {
         clearInterval(stepperInterval.value)
         const triggeringIndex = steps.value.findIndex((step) => step.isTriggering)
