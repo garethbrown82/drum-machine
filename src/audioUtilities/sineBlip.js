@@ -1,9 +1,9 @@
 export const playSineBlip = () => {
   const audioContext = new AudioContext()
   const oscillator = audioContext.createOscillator()
-  oscillator.frequency.setValueAtTime(261.6, 0)
+  oscillator.frequency.setValueAtTime(150, 0)
   oscillator.connect(audioContext.destination)
 
   oscillator.start(0)
-  oscillator.stop(0.001)
+  oscillator.stop(0.01)
 }

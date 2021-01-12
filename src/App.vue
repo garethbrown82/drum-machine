@@ -28,11 +28,11 @@ export default {
   setup() {
     let steps = ref([
       { id: 1, on: true, isTriggering: false },
-      { id: 2, on: true, isTriggering: false },
+      { id: 2, on: false, isTriggering: false },
       { id: 3, on: false, isTriggering: false },
       { id: 4, on: false, isTriggering: false },
-      { id: 5, on: false, isTriggering: false },
-      { id: 6, on: true, isTriggering: false },
+      { id: 5, on: true, isTriggering: false },
+      { id: 6, on: false, isTriggering: false },
       { id: 7, on: false, isTriggering: false },
       { id: 8, on: false, isTriggering: false },
     ])
